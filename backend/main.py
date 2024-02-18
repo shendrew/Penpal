@@ -5,7 +5,7 @@ import serial
 import tensorflow as tf
 import numpy as np
 import time
-
+import threading
 import serial.tools.list_ports
 
 app = Flask(__name__)
@@ -20,7 +20,7 @@ def get_data():
     ser = serial.Serial(port='COM6', baudrate=9600, timeout=0.05)
     acceleration = np.array([[]])
     while True:
-        ml_data = use_model()  
+        # ml_data = use_model()  
         data = []
         if ser.in_waiting:
             data = ser.readline().decode("utf-8").split()
@@ -35,7 +35,7 @@ def get_data():
             # print("=========================")
             acceleration = np.array([[]])
             # print("B")
-            return displacement
+            socketio.emit('update', displacement) # add ml_data later
         elif (acceleration.size == 0):                              # first point
             acceleration = np.array([[float(i) for i in data]])
             # print("C")
@@ -44,7 +44,7 @@ def get_data():
             # print(acceleration.shape)
         time.sleep(0.01) 
 
-        socketio.emit('update', ml_data, displacement)
+        socketio.emit('update', displacement) # add ml data later
         socketio.sleep(0.01)  # non-blocking sleep
 
 @socketio.on('connect')
@@ -56,4 +56,7 @@ def index():
     return render_template('index.html')
 
 if __name__ == '__main__':
+    thread = threading.Thread(target=get_data)
+    thread.daemon = True
+    thread.start()
     socketio.run(app)
