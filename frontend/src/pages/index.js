@@ -43,7 +43,7 @@ export default function Home() {
         </div>
         <div className="flex space-x-80 pt-20 pb-20"></div>
         {/* <p>ML data: {ml_data}</p> */}
-        <p className="text-5xl text-emerald-100">Measurements</p>
+        <p className="text-5xl text-emerald-100">Drawing Board</p>
         <div className="flex justify-between">
           <p>asdasds</p>
           <p>popinfoew</p>
