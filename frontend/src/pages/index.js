@@ -8,8 +8,8 @@ export default function Home() {
 
   useEffect(() => {
     const socket = io(); // connect to websocket server
-    socket.on('update', newData => {
-      setData(newData)
+    socket.on('update', data => { // receives data
+      setData(data)
     })
     return () => {
       socket.disconnect()
