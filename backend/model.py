@@ -1,7 +1,7 @@
 import tensorflow as tf
 import numpy as np
 
-def use_model():
+def use_model(input):
     model = tf.keras.Sequential([
         # Reshape input images to (28, 28, 1)
         tf.keras.layers.Reshape((28, 28, 1), input_shape=(28, 28)),
@@ -17,4 +17,5 @@ def use_model():
         tf.keras.layers.Dense(62, activation='softmax')
     ])
     model.load_weights("../emnist_model.h5")
-    return model.predict(np.random.rand(1, 28, 28))
+    return model.predict(input)
+    # return model.predict(np.random.rand(1, 28, 28))

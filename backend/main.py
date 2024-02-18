@@ -90,6 +90,7 @@ def rescale_image(d):
 def integrate(a):
     return np.cumsum(a) * 0.1
 
+alphabet = [letter for letter in 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'] + [letter for letter in 'abcdefghijklmnopqrstuvwxyz'] + [num for num in '0123456789']
 def get_data():
     ser = serial.Serial(port='COM6', baudrate=9600, timeout=0.2)
     acceleration = np.array([[]])
@@ -114,8 +115,11 @@ def get_data():
             # add ml_data later
             # print(integrate(acceleration))
             graphic = rescale_image(acceleration)
+            result = use_model(graphic.reshape(1, 28, 28))
+            letter = alphabet[np.argmax(result)]
+            print(letter)
             # socketio.emit('update', { "displacement": displacement.tolist() })
-            socketio.emit('update', { "displacement": graphic.tolist() })
+            socketio.emit('update', { "displacement": letter })
             acceleration = np.array([[]])
         elif (acceleration.size == 0):                              # first point
             acceleration = np.array([[float(i) for i in data]])
