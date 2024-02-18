@@ -5,8 +5,6 @@ import tensorflow as tf
 import numpy as np
 import time
 
-import serial.tools.list_ports
-
 app = Flask(__name__)
 CORS(app)
 
