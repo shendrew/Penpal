@@ -4,11 +4,12 @@ import animationData from "../../public/assets/animation.json";
 import io from 'socket.io-client';
 
 export default function Home() {
+  const [ml_data, mlSetData] = useState('');
   const [data, setData] = useState('');
-
   useEffect(() => {
     const socket = io(); // connect to websocket server
-    socket.on('update', data => { // receives data
+    socket.on('update', ml_data, data => { // receives data
+      mlSetData(ml_data)
       setData(data)
     })
     return () => {
@@ -22,7 +23,8 @@ export default function Home() {
         <p className="text-8xl font-bold">Pen Pal</p>
         <Lottie animationData={animationData} />
         <h2 className="text-3xl">Real Time Data</h2>
-        <p>{data}</p>
+        <p>ML data: {ml_data}</p>
+        <p>Measurements: {data}</p>
       </div>
     </>
   );
