@@ -30,7 +30,7 @@ def return_home():
 @app.route('/process_data', methods=['GET'])
 def process_data():
     # read from serial monitor
-    ser = serial.Serial('COM3', 9600)
+    ser = serial.Serial('COM5', 115200)
     data = ser.readline()
     print(data)
 
