@@ -7,10 +7,11 @@ import numpy as np
 import time
 import threading
 import serial.tools.list_ports
+import flask_cors
 
 app = Flask(__name__)
-socketio = SocketIO(app)
-
+socketio = SocketIO(app, cors_allowed_origins="*")
+cors = flask_cors.CORS(app, resources={r'/*': {'origins': '*'}})
 
 def integrate_acceleration(a, dt):
     v = np.cumsum(a, axis=0) * dt
