@@ -8,9 +8,10 @@ export default function Home() {
   const [data, setData] = useState('');
   useEffect(() => {
     const socket = io(); // connect to websocket server
-    socket.on('update', ml_data, data => { // receives data
-      mlSetData(ml_data)
+    socket.on('update', data => { // receives data
+      // mlSetData(ml_data)
       setData(data)
+      console.log("data is", data)
     })
     return () => {
       socket.disconnect()
