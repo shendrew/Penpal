@@ -39,7 +39,7 @@ def get_data():
             acceleration = np.array([[]])
             # print("B")
             # add ml_data later
-            socketio.emit('update', { "displacement": displacement })
+            socketio.emit('update', { "displacement": displacement.tolist() })
         elif (acceleration.size == 0):                              # first point
             acceleration = np.array([[float(i) for i in data]])
             # print("C")

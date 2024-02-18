@@ -10,7 +10,7 @@ export default function Home() {
     const socket = io('http://localhost:5000'); // connect to websocket server
     socket.on('update', data => { // receives data
       // mlSetData(ml_data)
-      setData(data)
+      setData(data.displacement)
       console.log("data is", data)
     })
     return () => {
