@@ -5,14 +5,15 @@ import io from "socket.io-client";
 
 export default function Home() {
   const [ml_data, mlSetData] = useState("");
-  const [data, setData] = useState("");
+  const [dispData, setDispData] = useState("");
+  const [accData, setAccData] = useState("");
   useEffect(() => {
     const socket = io("http://localhost:5000"); // connect to websocket server
     socket.on("update", (data) => {
       // receives data
       // mlSetData(ml_data)
-      setData(data.displacement);
-      console.log("data is", data);
+      setDispData(data.displacement);
+      setAccData(data.acceleration);
     });
     return () => {
       socket.disconnect();
@@ -22,17 +23,27 @@ export default function Home() {
   return (
     <>
       <div className="font-sans	bg-black-200 flex flex-col items-center justify-center bg-gradient-to-r from-cyan-500 to-blue-500">
-        <p className="text-8xl font-bold text-emerald-100	pb-24 pt-10">Pen Pal</p>
+        <p className="text-8xl font-bold text-emerald-100	pb-24 pt-10">
+          Pen Pal
+        </p>
         <Lottie animationData={animationData} />
-        <p className="text-5xl text-emerald-100 pt-28 pb-5">EMNIST Examples</p>
+        <p className="text-5xl text-emerald-100 pt-28 pb-5">
+          The Alphabet and EMNIST
+        </p>
         <img src="/assets/EMNIST.jpg" width={800} />
-        <h2 className="text-5xl text-emerald-100 pt-20">Real Time Data</h2>
-        <div className="flex space-x-80 pt-20 pb-20">
-          <p>child1</p>
-          <p>chil2</p>
+        <div className="flex justify-center align-center space-x-20">
+          <div className="flex flex-col">
+          <h2 className="text-5xl text-emerald-100 pt-20">Acceleration</h2>
+          <p className="text-5xl text-emerald-100">{accData}</p>
+          </div>
+          <div className="flex flex-col">
+          <h2 className="text-5xl text-emerald-100 pt-20">Displacement</h2>
+          <p className="text-5xl text-emerald-100">{dispData}</p>
+          </div>
         </div>
+        <div className="flex space-x-80 pt-20 pb-20"></div>
         {/* <p>ML data: {ml_data}</p> */}
-        <p className="text-5xl text-emerald-100">Measurements: {data}</p>
+        <p className="text-5xl text-emerald-100">Measurements</p>
         <div className="flex justify-between">
           <p>asdasds</p>
           <p>popinfoew</p>

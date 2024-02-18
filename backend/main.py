@@ -36,10 +36,10 @@ def get_data():
             displacement = integrate_acceleration(acceleration, 0.01)
             print(displacement)
             print("=========================")
-            acceleration = np.array([[]])
             # print("B")
             # add ml_data later
-            socketio.emit('update', { "displacement": displacement.tolist() })
+            socketio.emit('update', { "acceleration": acceleration.tolist(), "displacement": displacement.tolist() })
+            acceleration = np.array([[]])
         elif (acceleration.size == 0):                              # first point
             acceleration = np.array([[float(i) for i in data]])
             # print("C")
