@@ -6,7 +6,7 @@ venv
 *.lo
 *.o
 *.obj
-
+node_modules
 # Precompiled Headers
 *.gch
 *.pch

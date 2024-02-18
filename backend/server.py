@@ -1,5 +1,5 @@
 from flask import Flask, jsonify
-# import serial
+import serial
 from flask_cors import CORS
 import tensorflow as tf
 import numpy as np
@@ -32,6 +32,7 @@ def process_data():
     # read from serial monitor
     ser = serial.Serial('COM3', 9600)
     data = ser.readline()
+    print(data)
 
     # put data through neural netwrok
     # processed_data = ...
