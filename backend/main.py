@@ -31,8 +31,8 @@ def get_data():
         elif (data[0] == 'end'):                                  # end of contact
             # print(acceleration)
             displacement = integrate_acceleration(acceleration, 0.01)
-            # print(displacement)
-            # print("=========================")
+            print(displacement)
+            print("=========================")
             acceleration = np.array([[]])
             # print("B")
             socketio.emit('update', displacement) # add ml_data later
@@ -44,16 +44,11 @@ def get_data():
             # print(acceleration.shape)
         time.sleep(0.01) 
 
-        socketio.emit('update', displacement) # add ml data later
         socketio.sleep(0.01)  # non-blocking sleep
 
 @socketio.on('connect')
 def handle_connect():
     print('Client connected')
-
-@app.route('/')
-def index():
-    return render_template('index.html')
 
 if __name__ == '__main__':
     thread = threading.Thread(target=get_data)
